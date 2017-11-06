@@ -97,86 +97,9 @@ class CYScene extends Component {
               width={.5}
           />
 
-
-          <ViroImage
-            source={require("../portal_res/Chad2DImages/viewcode.png")}
-            onClick={this._handleClick}
-            position={[0,.4,0]}
-            height={.4}
-            width={.4}
-
-          />
-
-          <ViroImage
-          source={require("../portal_res/Chad2DImages/functionalmethods.png")}
-          position={[-.5,.05,0]}
-          height={.4}
-          width={.4}
-          visible={this.state.showCode}
-          />
-
-          <ViroImage
-          source={require("../portal_res/Chad2DImages/animations.png")}
-          position={[.5,.05,0]}
-          height={.4}
-          width={.4}
-          visible={this.state.showCode}
-          />
-
       </ViroNode>
 
 {/*END BBALL VIRONODE}*/}
-
-{/*START RESUME VIRONODE}*/}
-
-      <ViroNode
-      position={[-3,0,3]}
-      >
-
-        <ViroImage
-        source={require("../portal_res/Chad2DImages/findoutmore.png")}
-        onClick={this._handleResumeClick}
-        visible={this.state.showResumeButton}
-        position={[0,.05,0]}
-        height={.8}
-        width={.8}
-        transformBehaviors={["billboardY"]}
-        />
-
-        <ViroImage
-        source={require("../portal_res/Chad2DImages/resume.png")}
-        position={[.5,.05,0]}
-        onClick={this._handleResumeClick}
-        height={1.4}
-        width={1.1}
-        transformBehaviors={["billboardY"]}
-        visible={this.state.showResume}
-        />
-
-      </ViroNode>
-
-{/*END RESUME VIRONODE}*/}
-
-      <ViroNode
-      position={[3,0,-3]}
-      >
-
-        <ViroImage
-        source={require("../res/hiAR_banner.png")}
-        animation={{
-          name:'floatUpAndDown',
-          run:true,
-          loop: true,
-          delay: 0
-        }}
-        position={[.5,.05,0]}
-        height={1}
-        width={1.9}
-        transformBehaviors={["billboardY"]}
-        />
-
-      </ViroNode>
-
 
       </ViroPortalScene>
     );

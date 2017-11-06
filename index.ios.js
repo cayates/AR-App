@@ -18,7 +18,8 @@ import {
   PixelRatio,
   TouchableHighlight,
   Image,
-  Modal
+  Modal, 
+  ViroImage
 } from 'react-native';
 
 import {
@@ -26,7 +27,9 @@ import {
   ViroARSceneNavigator
 } from 'react-viro';
 
-import axios from 'axios'
+import axios from 'axios';
+
+import HomePage from "./js/components/HomePage";
 
 var sharedProps = {
   apiKey:"E177B403-DA0B-40C8-99A3-E390C500B559",
@@ -34,10 +37,8 @@ var sharedProps = {
 
 // Sets the default scene you want for AR and VR
 var InitialARScene = require('./js/HelloWorldSceneAR');
-var InitialVRScene = require('./js/HelloWorldScene');
 
 var UNSET = "UNSET";
-var VR_NAVIGATOR_TYPE = "VR";
 var AR_NAVIGATOR_TYPE = "AR";
 
 // This determines which type of experience to launch in, or UNSET, if the user should
@@ -58,145 +59,24 @@ export default class ViroSample extends Component {
       visitorName: "",
       visitorComments: ""
     }
-    this._getARNavigator = this._getARNavigator.bind(this);
   }
-
-  // axios.post('http://localhost:8080/send_simple_email', {
-  //     visitor: {
-  //       visitorEmail: "",
-  //       visitorName: "",
-  //       visitorComments: ""
-  //     }
-  //   })
-  //   .then(function (response) {
-  //     console.log(response);
-  //   });
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-
 
   // Setup the onPress method for displaying a form for users to receive email with team member contact information.
   setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
   }
 
-  // _handleSubmit = () => {
-  //   console.log('hello?')
-
-  //   axios.post('http://192.168.1.41:8080/send_simple_email', {
-  //     visitorName: this.state.visitorName,
-  //     visitorEmail: this.state.visitorEmail,
-  //     visitorComments: this.state.visitorComments
-  //   }).then((res)=>{
-
-  //     this.setState({
-  //       visitorName: "",
-  //       visitorEmail: "",
-  //       visitorComments: "",
-  //       modalVisible: false
-  //     })
-  //   }).catch(err => alert(JSON.stringify(err)))
-
-  // }
-
   // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
   // if you are building a specific type of experience.
   render() {
-      return this._getARNavigator();
-  }
-
-  // Returns the ViroARSceneNavigator which will start the AR experience
-  _getARNavigator() {
-
-    return (
-      <View style={localStyles.outer} >
-        <ViroARSceneNavigator {...this.state.sharedProps}
-          initialScene={{scene: InitialARScene}} />
-        <View style={{position: 'absolute', top: 20, right: 20, alignItems: 'center'}}>
-          <TouchableHighlight style={localStyles.formBtn}
-            onPress={() => {
-              this.setModalVisible(true)
-            }}
-            underlayColor={'#00000000'} >
-            <Text style={localStyles.buttonText}>+</Text>
-          </TouchableHighlight>
-
-          {/* This is invisible until the btn above is pressed  */}
-          <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {alert("Modal has been closed.")}}
-          >
-         <View style={{marginTop: 22}}>
+        return (
           <View style={{alignItems: 'center', marginTop: 10}}>
-            <Text style={{textAlign: 'center', margin: 20}}>Share your email address and name to recieve our team's contact information!</Text>
-
-            {/* Name */}
-            <TextInput
-              autoFocus= {true}
-              style={{height: 40, width: 300, borderColor: 'gray', borderWidth: 1, margin: 10}}
-              placeholder="Name"
-              label="name"
-              onChangeText={(name) => this.setState({visitorName: name})}
-              value={this.state.visitorName}
-            />
-
-            {/* Email */}
-            <TextInput
-              style={{height: 40, width: 300, borderColor: 'gray', borderWidth: 1}}
-              placeholder="Email Address"
-              label="email"
-              onChangeText={(email) => this.setState({visitorEmail: email})}
-              value={this.state.visitorEmail}
-            />
-
-            {/* Comments */}
-              <TextInput
-                style={{height: 100, width: 300, marginTop: 10, borderColor: 'gray', borderWidth: 1}}
-                placeholder="Any additional comments?"
-                multiline= {true}
-                label="comment"
-                onChangeText={(comment) => this.setState({visitorComments: comment})}
-                value={this.state.visitorComments}
-              />
-
-            {/* Submit */}
+            {/*<HomePage />*/}
             <TouchableHighlight style={localStyles.buttons} onPress={this._handleSubmit}>
-              <Text style={localStyles.buttonText}>Submit</Text>
+              <Text style={localStyles.buttonText}>Play Game!</Text>
             </TouchableHighlight>
-            {/* Cancel */}
-            <TouchableHighlight style={localStyles.buttons} onPress={() => {
-              this.setModalVisible(!this.state.modalVisible)
-            }}>
-              <Text style={localStyles.buttonText}>Cancel</Text>
-            </TouchableHighlight>
-
           </View>
-         </View>
-        </Modal>
-        </View>
-      </View>
-    );
-  }
-
-  // Returns the ViroSceneNavigator which will start the VR experience
-  _getVRNavigator() {
-    return (
-      <ViroSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialVRScene}} />
-    );
-  }
-
-  // This function returns an anonymous/lambda function to be used
-  // by the experience selector buttons
-  _getExperienceButtonOnPress(navigatorType) {
-    return () => {
-      this.setState({
-        navigatorType : navigatorType
-      })
-    }
+      )
   }
 }
 
@@ -250,7 +130,7 @@ var localStyles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('testinghiarme', () => ViroSample);
+AppRegistry.registerComponent('TheLearningCenter', () => ViroSample);
 
 // The below line is necessary for use with the TestBed App
 AppRegistry.registerComponent('ViroSample', () => ViroSample);
