@@ -19,7 +19,8 @@ import {
   TouchableHighlight,
   Image,
   Modal, 
-  ViroImage
+  ViroImage,
+  ViroScene
 } from 'react-native';
 
 import {
@@ -29,7 +30,7 @@ import {
 
 import axios from 'axios';
 
-import HomePage from "./js/components/HomePage";
+import ChooseSubject from "./js/components/ChooseSubject";
 
 var sharedProps = {
   apiKey:"E177B403-DA0B-40C8-99A3-E390C500B559",
@@ -45,39 +46,52 @@ var AR_NAVIGATOR_TYPE = "AR";
 // be presented with a choice of AR or VR. By default, we offer the user a choice.
 var defaultNavigatorType = UNSET;
 
-export default class ViroSample extends Component {
-  constructor() {
-    super();
-
-
-// DONT FORGET TO MAKE COMMENTS INPUT FIELD
-    this.state = {
-      navigatorType : defaultNavigatorType,
-      sharedProps : sharedProps,
-      modalVisible : false,
-      visitorEmail: "",
-      visitorName: "",
-      visitorComments: ""
+_showSubjects = () => {
+  return () => {
+    this.setState({
+      playGame: true
+    })
     }
   }
 
-  // Setup the onPress method for displaying a form for users to receive email with team member contact information.
-  setModalVisible = (visible) => {
-    this.setState({modalVisible: visible});
+_getGameStart = () => {
+  return (
+    <ViroScene {...this.state.sharedProps}
+      initialScene={{scene: ChooseSubject}} />
+  );
+}
+
+
+export default class ViroSample extends Component {
+  constructor() {
+    super();
+    this.state = {
+      playGame: false
+    }
+    this._getGameStart = this._getGameStart.bind(this);
   }
 
-  // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
-  // if you are building a specific type of experience.
+
   render() {
-        return (
-          <View style={{alignItems: 'center', marginTop: 10}}>
-            {/*<HomePage />*/}
-            <TouchableHighlight style={localStyles.buttons} onPress={this._handleSubmit}>
-              <Text style={localStyles.buttonText}>Play Game!</Text>
-            </TouchableHighlight>
-          </View>
-      )
+    if (this.state.playGame === true){
+      return this._getGameStart()
+    } else {
+      console.log("play game is false")
+    }
   }
+    
+  _getGameStart(){
+    return (
+      <View style={{alignItems: 'center', marginTop: 30}}>
+        <Text>Welcome to the Learning Center</Text>             
+        <Text>Ready to Play?</Text>    
+        <TouchableHighlight style={localStyles.buttons} onPress={this._getGameStart}>
+          <Text style={localStyles.buttonText}>Play Game!</Text>             
+        </TouchableHighlight>
+      </View>
+      )
+    }
+    
 }
 
 var localStyles = StyleSheet.create({
@@ -131,6 +145,4 @@ var localStyles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('TheLearningCenter', () => ViroSample);
-
-// The below line is necessary for use with the TestBed App
 AppRegistry.registerComponent('ViroSample', () => ViroSample);
